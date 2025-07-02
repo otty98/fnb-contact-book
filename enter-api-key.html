@@ -34,7 +34,11 @@
                                 alert(data + "Invalid API key entered!");
                             }
                         })
-            }
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert("Failed to verify API key. Please check your connection.");
+                        });
+                }
         </script>
     </body>
 </html>

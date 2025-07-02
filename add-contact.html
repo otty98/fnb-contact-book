@@ -2,7 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Contact Book - Add Contact</title>
+
+    <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #863c3c; padding: 8px; text-align: left; }
+        tr:hover { background-color: #ca8ccf; cursor: pointer; }
+        form { margin: 20px 0; }
+        label { display: inline-block; width: 100px; }
+        input { margin-bottom: 10px; }
+    </style>
 </head>
 <body>
     <br/>
@@ -15,8 +24,8 @@
         <input type="text" name="mobile" id="mobile"><br/>
         <label for="email">Email</label>
         <input type="text" name="email" id="email"><br/>
-        <label for="avatar">Select</label>
-        <input type="text" name="avatar" id="avatar"><br/>
+        <label for="avatar">Select a file</label><br/>
+        <input type="file" name="avatar" id="avatar"><br/>
         <button type="submit" id="submitForm">Submit</button>
     </form>
 
@@ -30,6 +39,12 @@
 
         function submitForm(e){
             e.preventDefault();
+  
+            const firstName = document.getElementById('firstname').value;
+            if (!firstName) {
+                alert('First name is required');
+                return;
+            }
 
             const form = new FormData(document.querySelector('#editForm'));
             form.append('apiKey', apiKey);
@@ -51,10 +66,15 @@
                     homeLink();
                 }
             })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Failed to add contact. Please try again.");
+            });
         }
         
-        //JS built-in function that opens a new window inside the current window
+        
         function homeLink(){
+            //JS built-in function that opens a new window inside the current window
             window.open("index.html", "_self");
 
         }
