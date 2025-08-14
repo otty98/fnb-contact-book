@@ -2,44 +2,58 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Contact Book - Add Contact</title>
-
-    <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid #863c3c; padding: 8px; text-align: left; }
-        tr:hover { background-color: #ca8ccf; cursor: pointer; }
-        form { margin: 20px 0; }
-        label { display: inline-block; width: 100px; }
-        input { margin-bottom: 10px; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Contact</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <br/>
-    <form id="editForm">
-        <label for="firstname">First Name</label>
-        <input type="text" name="firstname" id="firstname"><br/>
-        <label for="lastname">Last Name</label>
-        <input type="text" name="lastname" id="lastname"><br/>
-        <label for="mobile">Mobile</label>
-        <input type="text" name="mobile" id="mobile"><br/>
-        <label for="email">Email</label>
-        <input type="text" name="email" id="email"><br/>
-        <label for="avatar">Select a file</label><br/>
-        <input type="file" name="avatar" id="avatar"><br/>
-        <button type="submit" id="submitForm">Submit</button>
-    </form>
-
-    <br/>
-    <button id="homelink" type="button">Home</button>
+    <div class="container">
+        <div class="header">
+            <h1>Add New Contact</h1>
+            <button id="homelink" class="btn" type="button">Back to Contacts</button>
+        </div>
+        
+        <div class="form-container">
+            <form id="editForm">
+                <div class="form-group">
+                    <label for="firstname">First Name*</label>
+                    <input type="text" class="form-control" name="firstname" id="firstname" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lastname">Last Name</label>
+                    <input type="text" class="form-control" name="lastname" id="lastname">
+                </div>
+                
+                <div class="form-group">
+                    <label for="mobile">Mobile</label>
+                    <input type="tel" class="form-control" name="mobile" id="mobile">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" name="email" id="email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="avatar">Profile Photo</label>
+                    <input type="file" class="form-control" name="avatar" id="avatar" accept="image/*">
+                </div>
+                
+                <button type="submit" id="submitForm" class="btn">Save Contact</button>
+            </form>
+        </div>
+    </div>
 
     <script src="config.js"></script>
     <script>
-        document.getElementById("submitForm").addEventListener('click', submitForm);
-        document.getElementById("homelink").addEventListener('click', homeLink);
+        document.getElementById("homelink").addEventListener('click', function() {
+            window.open("index.html", "_self");
+        });
 
-        function submitForm(e){
+        document.getElementById("submitForm").addEventListener('click', function(e) {
             e.preventDefault();
-  
+            
             const firstName = document.getElementById('firstname').value;
             if (!firstName) {
                 alert('First name is required');
@@ -60,27 +74,16 @@
             .then(function(data){
                 if(data == "1"){
                     alert("Contact added");
-                    homeLink();
+                    window.open("index.html", "_self");
                 }else{
                     alert(data);
-                    homeLink();
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
                 alert("Failed to add contact. Please try again.");
             });
-        }
-        
-        
-        function homeLink(){
-            //JS built-in function that opens a new window inside the current window
-            window.open("index.html", "_self");
-
-        }
-
-
+        });
     </script>
-    
 </body>
 </html>
